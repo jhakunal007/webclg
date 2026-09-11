@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusPulse — University Events, Fests & Digital Passes</title>
+  <meta name="description" content="Discover, like, RSVP, and attend the best college events, national hackathons, cultural nights, and esports tournaments with instant holographic QR passes." />
+  <meta name="theme-color" content="#0a0d16" />
+
+  <!-- Google Fonts: Outfit & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/ticket.css" />
+</head>
+<body>
+  <!-- Ambient Grid & Glow background -->
+  <div class="ambient-mesh" aria-hidden="true"></div>
+
+  <!-- Main Navigation -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo" id="brandLogoLink">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+          </svg>
+        </div>
+        <span class="brand-name">CampusPulse</span>
+        <span class="brand-tag">Student Hub</span>
+      </a>
+
+      <ul class="nav-center-links">
+        <li><a href="#events" class="nav-link active">Events Feed</a></li>
+        <li><a href="#spotlight" class="nav-link">Flagship Fest</a></li>
+        <li><a href="#about" class="nav-link">Campus Clubs</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Liked Events Toggle Filter -->
+        <button class="btn btn-secondary" id="btnLikedFilter" onclick="toggleLikedFilterChip()" title="View your liked events">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#f43f5e"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <span>Liked</span>
+          <span class="badge-count" id="likedCountBadge" style="display: none;">0</span>
+        </button>
+
+        <!-- My Tickets Pass Drawer Trigger -->
+        <button class="btn btn-secondary" id="btnMyTickets" title="View your generated passes">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#38bdf8"><path d="M20 6h-2.18c.11-.65.18-1.32.18-2 0-2.21-1.79-4-4-4-1.66 0-3.08 1.01-3.69 2.45L10 3.5 9.69 2.45C9.08 1.01 7.66 0 6 0 3.79 0 2 1.79 2 4c0 .68.07 1.35.18 2H0v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V6h-2zM6 2c1.1 0 2 .9 2 2 0 .34-.09.65-.24.93L6.38 3.5 5.5 5.1c-.44-.3-.82-.72-1.07-1.22C4.16 3.32 4.01 2.68 4.01 2 4.01 2 4 2 4 2c0-1.1.9-2 2-2zm8 0c1.1 0 2 .9 2 2 0 .68-.15 1.32-.42 1.88-.25.5-.63.92-1.07 1.22L13.62 3.5l-1.38 1.43c-.15-.28-.24-.59-.24-.93 0-1.1.9-2 2-2zM4 8h14v10H4V8z"/></svg>
+          <span>My Passes</span>
+          <span class="badge-count" id="myTicketsBadge" style="display: none; background: #38bdf8;">0</span>
+        </button>
+
+        <!-- Host an Event CTA -->
+        <button class="btn btn-primary" id="btnHostEvent">
+          <span>+ Host Event</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-glow-badge">
+        <span class="pulse-dot"></span>
+        <span>Fall Campus Fest Season 2026 is LIVE</span>
+      </div>
+
+      <h1 class="hero-title">
+        Discover, Like & Experience <br />
+        <span class="hero-gradient-text">College Events That Matter</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Explore university hackathons, cultural concerts, esports showdowns, and hands-on workshops. Like your favorites and get holographic digital entry passes instantly.
+      </p>
+
+      <!-- Flagship Countdown Spotlight -->
+      <div class="spotlight-banner" id="spotlight">
+        <div class="spotlight-info">
+          <span class="spotlight-tag">⭐ Flagship Annual Fest</span>
+          <div>
+            <h3 class="spotlight-title">HackVerse 2026: 36-Hour National Hackathon</h3>
+            <p class="spotlight-meta">Sept 25, 2026 • Turing Innovation Hub • $6,500+ Prize Pool</p>
+          </div>
+        </div>
+
+        <div class="countdown-timer-group">
+          <div class="countdown-unit">
+            <span class="countdown-number" id="countDays">14</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <span class="countdown-separator">:</span>
+          <div class="countdown-unit">
+            <span class="countdown-number" id="countHours">08</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <span class="countdown-separator">:</span>
+          <div class="countdown-unit">
+            <span class="countdown-number" id="countMins">45</span>
+            <span class="countdown-label">Mins</span>
+          </div>
+          <span class="countdown-separator">:</span>
+          <div class="countdown-unit">
+            <span class="countdown-number" id="countSecs">30</span>
+            <span class="countdown-label">Secs</span>
+          </div>
+        </div>
+
+        <div>
+          <button class="btn btn-primary" onclick="triggerEventRsvp('evt-1')">
+            Get HackVerse Pass
+          </button>
+        </div>
+      </div>
+
+      <!-- Campus Stats Row -->
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-val" id="statTotalEvents">48+</div>
+          <div class="stat-label">Active Campus Events</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val" id="statTotalReg">3,200+</div>
+          <div class="stat-label">Student Registrations</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val">35+</div>
+          <div class="stat-label">Campus Clubs & Guilds</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val">$28,000+</div>
+          <div class="stat-label">Total Cash Prizes & Bounties</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Discovery & Filter Section -->
+  <section class="discovery-section" id="events">
+    <div class="container">
+      <div class="search-filter-card">
+        <div class="search-row">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              id="eventSearchInput" 
+              class="search-input" 
+              placeholder="Search by event title, organizing club, venue, or keyword..." 
+              autocomplete="off"
+            />
+          </div>
+
+          <select id="sortSelect" class="sort-select" title="Sort events">
+            <option value="upcoming">📅 Upcoming Date</option>
+            <option value="likes">❤️ Most Popular (Likes)</option>
+            <option value="registered">🔥 Most Registered</option>
+          </select>
+        </div>
+
+        <!-- Category Pills -->
+        <div class="category-pills">
+          <button class="category-pill active" data-category="all">
+            <span class="pill-icon">✨</span>
+            <span>All Categories</span>
+          </button>
+          <button class="category-pill" data-category="tech">
+            <span class="pill-icon">💻</span>
+            <span>Tech & Hackathons</span>
+          </button>
+          <button class="category-pill" data-category="cultural">
+            <span class="pill-icon">🎭</span>
+            <span>Cultural & Fests</span>
+          </button>
+          <button class="category-pill" data-category="music">
+            <span class="pill-icon">🎸</span>
+            <span>Music & Concerts</span>
+          </button>
+          <button class="category-pill" data-category="esports">
+            <span class="pill-icon">🎮</span>
+            <span>Esports & Gaming</span>
+          </button>
+          <button class="category-pill" data-category="sports">
+            <span class="pill-icon">🏀</span>
+            <span>Sports & Athletics</span>
+          </button>
+          <button class="category-pill" data-category="workshops">
+            <span class="pill-icon">🧠</span>
+            <span>Workshops & Seminars</span>
+          </button>
+        </div>
+
+        <!-- Secondary Filter Chips -->
+        <div class="filter-chips-row">
+          <div class="chip-filters">
+            <button class="filter-chip active" data-filter="all">All Events</button>
+            <button class="filter-chip" data-filter="flagship">⭐ Flagship</button>
+            <button class="filter-chip" data-filter="weekend">🗓️ This Weekend</button>
+            <button class="filter-chip" data-filter="free">🎟️ Free Entry</button>
+            <button class="filter-chip liked-only-chip" data-filter="liked" id="chipLikedFilter">
+              <span>❤️ Liked by Me</span>
+            </button>
+          </div>
+
+          <div class="events-result-counter" id="eventsResultCount">
+            Showing events...
+          </div>
+        </div>
+      </div>
+
+      <!-- Events Grid -->
+      <main class="events-grid" id="eventsGrid">
+        <!-- Injected dynamically via app.js -->
+      </main>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Modals & Slide-ins
+       ======================================================================== -->
+
+  <!-- 1. Event Details Modal -->
+  <div class="modal-overlay" id="detailsModal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="btnCloseDetailsModal" aria-label="Close details">✕</button>
+      <div id="detailsContent">
+        <!-- Populated via openEventDetails() -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. RSVP Registration Modal -->
+  <div class="modal-overlay" id="rsvpModal" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width: 540px;">
+      <button class="modal-close-btn" id="btnCloseRsvpModal" aria-label="Close RSVP">✕</button>
+      <div class="modal-inner">
+        <div class="modal-badge-row">
+          <span class="spotlight-tag">Free Student Registration</span>
+        </div>
+        <h2 class="modal-title" style="font-size: 1.5rem; margin-bottom: 4px;" id="rsvpEventTitle">Event Title</h2>
+        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.5rem;" id="rsvpEventVenue">Venue & Date</p>
+
+        <form id="rsvpForm">
+          <input type="hidden" id="rsvpEventId" />
+
+          <div class="form-group">
+            <label class="form-label" for="rsvpName">Full Name *</label>
+            <input type="text" id="rsvpName" class="form-input" placeholder="e.g. Alex Morgan" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="rsvpRoll">Student ID / Roll No *</label>
+              <input type="text" id="rsvpRoll" class="form-input" placeholder="e.g. CS2026-084" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="rsvpYear">Academic Year</label>
+              <select id="rsvpYear" class="form-select">
+                <option value="1st Year">1st Year (Freshman)</option>
+                <option value="2nd Year">2nd Year (Sophomore)</option>
+                <option value="3rd Year" selected>3rd Year (Junior)</option>
+                <option value="4th Year">4th Year (Senior)</option>
+                <option value="Postgrad">Postgraduate / Masters</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="rsvpDept">Department</label>
+              <select id="rsvpDept" class="form-select">
+                <option value="Computer Science">Computer Science & Eng</option>
+                <option value="Data Science & AI">Data Science & AI</option>
+                <option value="Electronics & Comm">Electronics & Comm (ECE)</option>
+                <option value="Mechanical Eng">Mechanical Engineering</option>
+                <option value="Design & Media">Design & Media Arts</option>
+                <option value="Business & Mgmt">Business & Management</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="rsvpEmail">Campus Email *</label>
+              <input type="email" id="rsvpEmail" class="form-input" placeholder="alex@campus.edu" required />
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem; display: flex; gap: 12px; justify-content: flex-end;">
+            <button type="button" class="btn btn-secondary" onclick="TicketManager.closeRsvpModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Generate Holographic Pass 🎟️</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Holographic Pass Preview Modal -->
+  <div class="modal-overlay" id="passModal" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width: 740px;">
+      <button class="modal-close-btn" id="btnClosePassModal" aria-label="Close pass">✕</button>
+      <div class="modal-inner">
+        <div style="text-align: center; margin-bottom: 1rem;">
+          <h3 style="font-family: var(--font-display); font-size: 1.4rem; color: #38bdf8;">
+            ✨ Holographic Student Entry Pass
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">
+            Present this scannable QR code at the campus security gate or event check-in desk.
+          </p>
+        </div>
+
+        <!-- Rendered Ticket Container -->
+        <div class="ticket-wrapper" id="passTicketContainer">
+          <!-- Dynamic ticket rendered here -->
+        </div>
+
+        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 1rem;">
+          <button class="btn btn-secondary" id="btnPrintPass">
+            🖨️ Print / Save PDF
+          </button>
+          <button class="btn btn-primary" onclick="TicketManager.closePassModal(); TicketManager.openDrawer();">
+            View All My Passes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Host an Event Modal -->
+  <div class="modal-overlay" id="hostModal" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width: 650px;">
+      <button class="modal-close-btn" id="btnCloseHostModal" aria-label="Close host modal">✕</button>
+      <div class="modal-inner">
+        <div class="modal-badge-row">
+          <span class="spotlight-tag" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.35);">
+            Campus Organizer Portal
+          </span>
+        </div>
+        <h2 class="modal-title" style="font-size: 1.6rem; margin-bottom: 0.5rem;">Host / Submit a Campus Event</h2>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">
+          Publish your club, department, or council event to the university feed with instant live ticketing.
+        </p>
+
+        <form id="hostEventForm">
+          <div class="form-group">
+            <label class="form-label" for="hostTitle">Event Title *</label>
+            <input type="text" id="hostTitle" class="form-input" placeholder="e.g. Cloud Security CTF Hackathon 2026" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="hostClub">Organizing Club / Society *</label>
+              <input type="text" id="hostClub" class="form-input" placeholder="e.g. Cybersecurity Club & ACM" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="hostCategory">Category *</label>
+              <select id="hostCategory" class="form-select">
+                <option value="tech">Tech & Hackathons</option>
+                <option value="cultural">Cultural & Fests</option>
+                <option value="music">Music & Concerts</option>
+                <option value="esports">Esports & Gaming</option>
+                <option value="sports">Sports & Athletics</option>
+                <option value="workshops">Workshops & Seminars</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="hostDate">Date *</label>
+              <input type="date" id="hostDate" class="form-input" required value="2026-10-15" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="hostTime">Time *</label>
+              <input type="text" id="hostTime" class="form-input" placeholder="e.g. 10:00 AM - 04:00 PM" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="hostVenue">Campus Venue *</label>
+              <input type="text" id="hostVenue" class="form-input" placeholder="e.g. Newton Seminar Hall 2" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="hostPrize">Prize Pool / Perks</label>
+              <input type="text" id="hostPrize" class="form-input" placeholder="e.g. $1,200 Cash + Swag" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="hostImageUrl">Cover Image URL (Optional - leave blank for automatic preset)</label>
+            <input type="url" id="hostImageUrl" class="form-input" placeholder="https://images.unsplash.com/..." />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="hostDesc">Event Overview & Description *</label>
+            <textarea id="hostDesc" class="form-textarea" placeholder="Describe the challenges, activities, who can participate, and expectations..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="hostPerks">Perks (Comma-separated)</label>
+            <input type="text" id="hostPerks" class="form-input" placeholder="Free Pizza, Swag Kits, IEEE Certificates, Cash Prizes" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="hostOrgName">Lead Coordinator Name</label>
+              <input type="text" id="hostOrgName" class="form-input" placeholder="e.g. Sarah Jenkins" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="hostOrgEmail">Contact Email</label>
+              <input type="email" id="hostOrgEmail" class="form-input" placeholder="coordinator@campus.edu" />
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem; display: flex; gap: 12px; justify-content: flex-end;">
+            <button type="button" class="btn btn-secondary" onclick="HostEventManager.closeModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Publish to Campus Feed 🚀</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. "My Tickets / Passes" Slide-in Drawer -->
+  <div class="tickets-drawer" id="ticketsDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title">🎟️ My Event Passes</div>
+      <button class="modal-close-btn" id="btnCloseDrawer" style="position: static;" aria-label="Close drawer">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <div id="drawerEmptyTickets" style="text-align: center; padding: 3rem 1rem; color: var(--text-muted); display: none;">
+        <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🎫</div>
+        <p style="font-weight: 600; color: var(--text-secondary); margin-bottom: 4px;">No Booked Passes Yet</p>
+        <p style="font-size: 0.82rem;">Explore the events feed and click "Get Pass" to RSVP and generate your pass.</p>
+      </div>
+
+      <div id="drawerTicketsList">
+        <!-- Rendered tickets injected via ticket.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Drawer Backdrop Overlay -->
+  <div class="modal-overlay" id="drawerBackdrop" style="z-index: 1050;"></div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" id="about">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="brand-logo" style="margin-bottom: 0.5rem;">
+            <div class="brand-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+              </svg>
+            </div>
+            <span class="brand-name">CampusPulse</span>
+          </a>
+          <p>
+            The unified college event discovery, ticketing, and student community platform. Made for students, by students.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Categories</h4>
+          <ul class="footer-links">
+            <li><a href="#events" onclick="setCategoryFilter('tech')">Tech & Hackathons</a></li>
+            <li><a href="#events" onclick="setCategoryFilter('cultural')">Cultural Nights</a></li>
+            <li><a href="#events" onclick="setCategoryFilter('music')">Music Concerts</a></li>
+            <li><a href="#events" onclick="setCategoryFilter('esports')">Esports Arena</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Campus Clubs</h4>
+          <ul class="footer-links">
+            <li><a href="#events">DevSociety & GDG</a></li>
+            <li><a href="#events">Campus Cultural Council</a></li>
+            <li><a href="#events">Robotics & Automation</a></li>
+            <li><a href="#events">Film & Dramatics Guild</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Organizers</h4>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0)" onclick="HostEventManager.openModal()">+ Host an Event</a></li>
+            <li><a href="javascript:void(0)" onclick="TicketManager.openDrawer()">Check My Passes</a></li>
+            <li><a href="#spotlight">HackVerse Flagship</a></li>
+            <li><a href="mailto:support@campuspulse.edu">Support & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 CampusPulse. All rights reserved. University Student Affairs.</div>
+        <div style="display: flex; gap: 1rem;">
+          <span>Privacy Policy</span>
+          <span>Terms of Conduct</span>
+          <span>Campus Safety</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/events-data.js"></script>
+  <script src="js/qr-generator.js"></script>
+  <script src="js/ticket.js"></script>
+  <script src="js/host-event.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    function setCategoryFilter(cat) {
+      document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+      const target = document.querySelector(`.category-pill[data-category="${cat}"]`);
+      if (target) target.classList.add('active');
+      AppState.setCategory(cat);
+      const eventsSection = document.getElementById('events');
+      if (eventsSection) eventsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleLikedFilterChip() {
+      const chip = document.getElementById('chipLikedFilter');
+      if (!chip) return;
+      
+      const isCurrentlyActive = chip.classList.contains('active');
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      
+      if (!isCurrentlyActive) {
+        chip.classList.add('active');
+        AppState.setFilter('liked');
+      } else {
+        const allChip = document.querySelector('.filter-chip[data-filter="all"]');
+        if (allChip) allChip.classList.add('active');
+        AppState.setFilter('all');
+      }
+
+      const eventsSection = document.getElementById('events');
+      if (eventsSection) eventsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
